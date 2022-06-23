@@ -19,7 +19,7 @@ class AchievementWidget extends StatefulWidget {
   final ValueChanged<AchievementState>? listener;
   final Duration duration;
   final bool isCircle;
-  final Widget icon;
+  final Widget? icon;
   final AnimationTypeAchievement typeAnimationContent;
   final BorderRadiusGeometry? borderRadius;
   final double elevation;
@@ -28,8 +28,8 @@ class AchievementWidget extends StatefulWidget {
   final BorderRadiusGeometry? iconBorderRadius;
   final TextStyle? textStyleTitle;
   final TextStyle? textStyleSubTitle;
-  final String title;
-  final String subTitle;
+  final String? title;
+  final String? subTitle;
 
   const AchievementWidget({
     Key? key,
@@ -38,10 +38,7 @@ class AchievementWidget extends StatefulWidget {
     this.listener,
     this.isCircle = false,
     this.elevation = 2,
-    this.icon = const Icon(
-      Icons.insert_emoticon,
-      color: Colors.white,
-    ),
+    this.icon,
     this.onTap,
     this.typeAnimationContent = AnimationTypeAchievement.fadeSlideToUp,
     this.borderRadius,
@@ -50,8 +47,8 @@ class AchievementWidget extends StatefulWidget {
     this.iconBorderRadius,
     this.textStyleTitle,
     this.textStyleSubTitle,
-    this.title = "",
-    this.subTitle = "",
+    this.title,
+    this.subTitle,
   }) : super(key: key);
 
   @override
@@ -174,6 +171,9 @@ class AchievementWidgetState extends State<AchievementWidget>
   }
 
   Widget _buildIcon() {
+    if (widget.icon == null) {
+      return const SizedBox();
+    }
     return Container(
       decoration: BoxDecoration(
         borderRadius: widget.iconBorderRadius,
@@ -214,6 +214,9 @@ class AchievementWidgetState extends State<AchievementWidget>
   }
 
   Widget _buildTitle() {
+    if (widget.title == null) {
+      return const SizedBox();
+    }
     return AnimatedBuilder(
       animation: _controllerTitle,
       builder: (_, child) {
@@ -226,7 +229,7 @@ class AchievementWidgetState extends State<AchievementWidget>
         );
       },
       child: Text(
-        widget.title,
+        widget.title!,
         softWrap: true,
         style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)
             .merge(widget.textStyleTitle),
@@ -235,6 +238,9 @@ class AchievementWidgetState extends State<AchievementWidget>
   }
 
   Widget _buildSubTitle() {
+    if (widget.subTitle == null) {
+      return const SizedBox();
+    }
     return AnimatedBuilder(
         animation: _controllerSubTitle,
         builder: (_, child) {
@@ -247,7 +253,7 @@ class AchievementWidgetState extends State<AchievementWidget>
           );
         },
         child: Text(
-          widget.subTitle,
+          widget.subTitle!,
           style: const TextStyle(color: Colors.white)
               .merge(widget.textStyleSubTitle),
         ));
